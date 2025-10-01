@@ -1,12 +1,28 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   return (
-    <View style={estilos.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <View style={estilos.container}>
+        <View style={estilos.fundo}>
+          <Text style={estilos.titulo}>Meu histórico de localização</Text>
+          <StatusBar style="auto" />
+
+          <Text>Aqui vai o mapa</Text>
+        </View>
+
+        <View style={estilos.semicirculo}>
+          <Text style={estilos.data}>11:22 - 30/09/2025</Text>
+        </View>
+
+        <Pressable style={estilos.botaoMarcar}>
+          <Text style={{ color: "white", fontSize: 20 }}>
+            Marcar minha posição
+          </Text>
+        </Pressable>
+      </View>
+    </>
   );
 }
 
@@ -15,6 +31,48 @@ const estilos = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "flex-start", // Alinha o conteúdo ao topo
+    width: "100%", // Preenche a largura da tela
+  },
+  fundo: {
+    width: "100%", // Preenche a largura da tela
+    backgroundColor: "#47d7c7",
+  },
+  titulo: {
+    width: "100%", // Preenche a largura da tela
+    paddingTop: 100, // Espaço do topo
+    paddingBottom: 200,
+    backgroundColor: "#47d7c7",
+    textAlign: "center",
+    fontSize: 28,
+    color: "#222",
+    fontWeight: "bold",
+  },
+  semicirculo: {
+    width: "100%",
+    height: 160,
+    backgroundColor: "#47d7c7",
+    borderBottomLeftRadius: 160,
+    borderBottomRightRadius: 160,
     justifyContent: "center",
+    alignItems: "center",
+  },
+  data: {
+    fontSize: 18,
+    color: "#222",
+  },
+  botaoMarcar: {
+    color: "#fff",
+    backgroundColor: "#68ddbd",
+    fontSize: 20,
+    borderRadius: 10,
+    marginTop: 50,
+    alignItems: "center",
+    padding: 25,
+    shadowColor: "#000",
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
   },
 });
