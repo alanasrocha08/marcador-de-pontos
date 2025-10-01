@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as Location from "expo-location";
 import { StatusBar } from "expo-status-bar";
+import MapView, { Marker } from "react-native-maps";
 
 export default function App() {
   const [location, setLocation] = useState<Location.LocationObject | null>(
@@ -31,7 +32,25 @@ export default function App() {
           <Text style={estilos.titulo}>Meu histórico de localização</Text>
           <StatusBar style="auto" />
 
-          <Text>Aqui vai o mapa</Text>
+          <MapView
+            style={estilos.mapa}
+            initialRegion={{
+              latitude: location ? location.coords.latitude : -23.55052, // fallback SP
+              longitude: location ? location.coords.longitude : -46.633308,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}
+          >
+            {location && (
+              <Marker
+                coordinate={{
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude,
+                }}
+                title="Você está aqui"
+              />
+            )}
+          </MapView>
         </View>
 
         <View style={estilos.semicirculo}>
@@ -63,7 +82,6 @@ const estilos = StyleSheet.create({
   titulo: {
     width: "100%", // Preenche a largura da tela
     paddingTop: 100, // Espaço do topo
-    paddingBottom: 200,
     backgroundColor: "#47d7c7",
     textAlign: "center",
     fontSize: 28,
@@ -96,5 +114,12 @@ const estilos = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 4,
+  },
+  mapa: {
+    width: "95%",
+    height: 300,
+    overflow: "hidden", // Garante que o mapa respeite o borderRadius
+    alignSelf: "center", // Centraliza horizontalmente
+    marginVertical: 30, // Espaço vertical para centralizar melhor
   },
 });
